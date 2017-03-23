@@ -10,9 +10,9 @@
 import UIKit
 
 /// PKHUDSquareBaseView provides a square view, which you can subclass and add additional views to.
-public class PKHUDSquareBaseView: UIView {
+open class PKHUDSquareBaseView: UIView {
     
-    static let defaultSquareBaseViewFrame = CGRect(origin: CGPointZero, size: CGSize(width: 180.0, height: 180.0))
+    static let defaultSquareBaseViewFrame = CGRect(origin: CGPoint.zero, size: CGSize(width: 180.0, height: 180.0))
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,28 +33,28 @@ public class PKHUDSquareBaseView: UIView {
         addSubview(subtitleLabel)
     }
 
-    public let imageView: UIImageView = {
+    open let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
-        imageView.contentMode = .Center
+        imageView.contentMode = .center
         return imageView
     }()
     
-    public let titleLabel: UILabel = {
+    open let titleLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .Center
-        label.font = UIFont.boldSystemFontOfSize(17.0)
-        label.textColor = UIColor.blackColor()
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 17.0)
+        label.textColor = UIColor.black
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.25
         return label
     }()
     
-    public let subtitleLabel: UILabel = {
+    open let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .Center
-        label.font = UIFont.systemFontOfSize(14.0)
-        label.textColor = UIColor.blackColor().colorWithAlphaComponent(0.9)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.textColor = UIColor.black.withAlphaComponent(0.9)
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 2
         label.adjustsFontSizeToFitWidth = true
@@ -62,7 +62,7 @@ public class PKHUDSquareBaseView: UIView {
         return label
     }()
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
     
         let viewWidth = bounds.size.width

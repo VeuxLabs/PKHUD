@@ -19,34 +19,34 @@ class DemoViewController: UIViewController {
     }
 
     @IBAction func showAnimatedSuccessHUD(sender: AnyObject) {
-        HUD.flash(.Success, delay: 2.0)
+        HUD.flash(.success, delay: 2.0)
     }
     
     @IBAction func showAnimatedErrorHUD(sender: AnyObject) {
-        HUD.show(.Error)
+        HUD.show(.error)
         HUD.hide(afterDelay: 2.0)
     }
     
     @IBAction func showAnimatedProgressHUD(sender: AnyObject) {
-        HUD.show(.Progress)
+        HUD.show(.progress)
         
         // Now some long running task starts...
-        delay(2.0) {
+        delay(delay: 2.0) {
             // ...and once it finishes we flash the HUD for a second.
-            HUD.flash(.Success, delay: 1.0)
+            HUD.flash(.success, delay: 1.0)
         }
     }
     
     @IBAction func showCustomProgressHUD(sender: AnyObject) {
-        HUD.flash(.RotatingImage(UIImage(named: "progress")), delay: 2.0)
+        HUD.flash(.rotatingImage(UIImage(named: "progress")), delay: 2.0)
     }
     
     @IBAction func showAnimatedStatusProgressHUD(sender: AnyObject) {
-        HUD.flash(.LabeledProgress(title: "Title", subtitle: "Subtitle"), delay: 2.0)
+        HUD.flash(.labeledProgress(title: "Title", subtitle: "Subtitle"), delay: 2.0)
     }
     
     @IBAction func showTextHUD(sender: AnyObject) {
-        HUD.flash(.Label("Requesting Licence…"), delay: 2.0) { _ in
+        HUD.flash(.label("Requesting Licence…"), delay: 2.0) { _ in
             print("License Obtained.")
         }
     }
@@ -61,20 +61,18 @@ class DemoViewController: UIViewController {
     PKHUD.sharedHUD.hide(afterDelay: 2.0)
     */
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.AllButUpsideDown
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.allButUpsideDown
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
-    func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
+    func delay(delay:Double, closure:@escaping ()->Void) {
+        let delayTime = DispatchTimeInterval.seconds(Int(delay))
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayTime) {
+            closure()
+        }
     }
 }
