@@ -113,11 +113,11 @@ open class PKHUD: NSObject {
     
     // MARK: Internal
     
-    internal func willEnterForeground(_ notification: Notification?) {
+    @objc internal func willEnterForeground(_ notification: Notification?) {
         self.startAnimatingContentView()
     }
     
-    internal func performDelayedHide(_ timer: Timer? = nil) {
+    @objc internal func performDelayedHide(_ timer: Timer? = nil) {
         var key: String? = nil
         if let userInfoDict = timer?.userInfo as? [String : AnyObject] {
             key  = userInfoDict["timerActionKey"] as? String
